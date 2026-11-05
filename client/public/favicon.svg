@@ -1,0 +1,44 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="top" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff7eb"/>
+      <stop offset="1" stop-color="#ffe3b3"/>
+    </linearGradient>
+    <linearGradient id="left" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffb173"/>
+      <stop offset="1" stop-color="#ff6766"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffe3b3"/>
+      <stop offset="1" stop-color="#ffb173"/>
+    </linearGradient>
+    <linearGradient id="code">
+      <stop stop-color="#ca2851"/>
+      <stop offset=".5" stop-color="#ff6766"/>
+      <stop offset="1" stop-color="#ffb173"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cube top -->
+  <path d="M256 82 L407 170 L105 170 Z" fill="url(#top)"/>
+
+  <!-- Cube left -->
+  <path d="M105 170 L177 216 L177 286 L256 333 L256 425 L105 339 Z"
+        fill="url(#left)"/>
+
+  <!-- Cube right -->
+  <path d="M407 170 L407 339 L256 425 Z" fill="url(#right)"/>
+
+  <!-- Central dark folded section -->
+  <path d="M105 170 L407 170 L256 425 L256 333 L177 286 L177 216 Z"
+        fill="#100d0d"/>
+
+  <!-- Code symbol -->
+  <g fill="none" stroke="url(#code)" stroke-width="12"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M229 226 L190 256 L229 286"/>
+    <path d="M275 211 L244 301"/>
+    <path d="M283 226 L322 256 L283 286"/>
+  </g>
+</svg>
