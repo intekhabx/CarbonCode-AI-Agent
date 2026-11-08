@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarbonCode</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0d0e12;
+      color: #ffe3b3;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 30%, rgba(202, 40, 81, 0.25) 0%, rgba(255, 103, 102, 0.1) 40%, rgba(13, 14, 18, 0) 75%);
+    }
+    .glass-card {
+      background: rgba(21, 23, 30, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 177, 115, 0.15);
+    }
+    .glass-input {
+      background: rgba(13, 14, 18, 0.75);
+      border: 1px solid rgba(255, 177, 115, 0.2);
+    }
+    .glass-input:focus {
+      border-color: #ff6766;
+      box-shadow: 0 0 15px rgba(255, 103, 102, 0.25);
+    }
+    .btn-gradient {
+      background: linear-gradient(135deg, #ca2851 0%, #ff6766 50%, #ffb173 100%);
+      color: #0d0e12;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .btn-gradient:hover {
+      box-shadow: 0 0 20px rgba(255, 103, 102, 0.4);
+      transform: translateY(-1px);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffe3b3 0%, #ffb173 50%, #ff6766 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="relative flex flex-col justify-between min-h-screen">
+
+<!-- Light-shaded Background SVG Logo Watermark -->
+<div class="fixed inset-0 flex items-center justify-center pointer-events-none z-0 opacity-[0.06] transition-opacity duration-500">
+  <svg width="700" height="700" viewBox="0 0 512 512" class="transform scale-110">
+    <defs>
+      <linearGradient id="bg_top" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#fff7eb"/>
+        <stop offset="1" stop-color="#ffe3b3"/>
+      </linearGradient>
+      <linearGradient id="bg_left" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#ffb173"/>
+        <stop offset="1" stop-color="#ff6766"/>
+      </linearGradient>
+      <linearGradient id="bg_right" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#ffe3b3"/>
+        <stop offset="1" stop-color="#ffb173"/>
+      </linearGradient>
+      <linearGradient id="bg_code">
+        <stop stop-color="#ca2851"/>
+        <stop offset=".5" stop-color="#ff6766"/>
+        <stop offset="1" stop-color="#ffb173"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Isometric Cube Shapes -->
+    <path d="M256 82 L407 170 L105 170 Z" fill="url(#bg_top)"/>
+    <path d="M105 170 L177 216 L177 286 L256 333 L256 425 L105 339 Z" fill="url(#bg_left)"/>
+    <path d="M407 170 L407 339 L256 425 Z" fill="url(#bg_right)"/>
+    <path d="M105 170 L407 170 L256 425 L256 333 L177 286 L177 216 Z" fill="#100d0d"/>
+
+    <!-- Central Code Symbol -->
+    <g fill="none" stroke="url(#bg_code)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M229 226 L190 256 L229 286"/>
+      <path d="M275 211 L244 301"/>
+      <path d="M283 226 L322 256 L283 286"/>
+    </g>
+  </svg>
+</div>
+
+<!-- Lighter Ambient Glow -->
+<div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(circle at 50% 30%, rgba(202, 40, 81, 0.12) 0%, rgba(255, 103, 102, 0.04) 45%, rgba(13, 14, 18, 0) 75%);"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('home')">
+      <!-- Mini SVG Logo Icon -->
+      <svg width="32" height="32" viewBox="0 0 512 512">
+        <path d="M256 82 L407 170 L105 170 Z" fill="url(#bg_top)"/>
+        <path d="M105 170 L177 216 L177 286 L256 333 L256 425 L105 339 Z" fill="url(#bg_left)"/>
+        <path d="M407 170 L407 339 L256 425 Z" fill="url(#bg_right)"/>
+        <path d="M105 170 L407 170 L256 425 L256 333 L177 286 L177 216 Z" fill="#100d0d"/>
+        <g fill="none" stroke="url(#bg_code)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M229 226 L190 256 L229 286"/>
+          <path d="M275 211 L244 301"/>
+          <path d="M283 226 L322 256 L283 286"/>
+        </g>
+      </svg>
+      <span class="text-xl font-bold tracking-tight text-white">Carbon<span class="text-[#ff6766]">Code</span></span>
+    </div>
+
+    <nav class="flex items-center gap-2 bg-[#15171e]/80 backdrop-blur-md p-1.5 rounded-full border border-[#ffb173]/10">
+      <button onclick="switchView('home')" id="nav-home" class="px-5 py-2 rounded-full text-xs font-semibold bg-[#ff6766]/20 text-[#ffe3b3]">Home</button>
+      <button onclick="switchView('builder')" id="nav-builder" class="px-5 py-2 rounded-full text-xs font-semibold text-gray-400 hover:text-white">Builder</button>
+      <button onclick="switchView('login')" id="nav-login" class="px-5 py-2 rounded-full text-xs font-semibold text-gray-400 hover:text-white">Sign In</button>
+    </nav>
+  </header>
+
+  <!-- View: Home -->
+  <main id="view-home" class="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 max-w-4xl mx-auto w-full py-12">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#ca2851]/15 border border-[#ca2851]/30 text-xs font-semibold text-[#ffb173] mb-8">
+      <span class="px-2 py-0.5 rounded-full bg-[#ca2851] text-white text-[10px] uppercase">PROMO</span>
+      Create your first project for free
+    </div>
+
+    <h1 class="text-5xl sm:text-6xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+      Let's build your app <br><span class="gradient-text">together</span>
+    </h1>
+    <p class="text-gray-400 text-base max-w-xl mb-10 leading-relaxed">
+      Describe your idea and watch AI design, structure, and launch your website instantly. No coding required.
+    </p>
+
+    <div class="w-full max-w-2xl glass-card rounded-3xl p-3 mb-6 shadow-2xl">
+      <textarea id="home-prompt" rows="3" placeholder="Create a portfolio website..." class="w-full bg-transparent text-white placeholder-gray-500 focus:outline-none p-4 resize-none text-sm"></textarea>
+      <div class="flex items-center justify-between px-3 pb-2 pt-1 border-t border-[#ffb173]/10">
+        <div class="flex items-center gap-2 text-gray-400">
+          <button class="p-2 rounded-full hover:bg-white/5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg></button>
+          <button class="p-2 rounded-full hover:bg-white/5"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
+        </div>
+        <button onclick="switchView('builder')" class="btn-gradient px-6 py-2.5 rounded-full flex items-center gap-2 text-xs">
+          <span>Generate</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-2">
+      <button onclick="document.getElementById('home-prompt').value='Portfolio Website'" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300 hover:text-white">Portfolio Website</button>
+      <button onclick="document.getElementById('home-prompt').value='E-commerce Website'" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300 hover:text-white">E-commerce Website</button>
+      <button onclick="document.getElementById('home-prompt').value='Blog Platform'" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300 hover:text-white">Blog</button>
+      <button onclick="document.getElementById('home-prompt').value='Landing Page'" class="px-4 py-2 rounded-full glass-card text-xs text-gray-300 hover:text-white">Landing Page</button>
+    </div>
+  </main>
+
+  <!-- View: Login -->
+  <main id="view-login" class="hidden relative z-10 flex-1 flex items-center justify-center px-6 py-12">
+    <div class="w-full max-w-md glass-card rounded-[2.5rem] p-8 shadow-2xl">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-white mb-2">Sign In</h2>
+        <p class="text-gray-400 text-xs">Welcome back to CarbonCode</p>
+      </div>
+      <form onsubmit="event.preventDefault(); switchView('builder');" class="space-y-4">
+        <input type="email" placeholder="Email Address" class="w-full glass-input rounded-full px-6 py-3.5 text-white placeholder-gray-500 focus:outline-none text-xs">
+        <input type="password" placeholder="Password" class="w-full glass-input rounded-full px-6 py-3.5 text-white placeholder-gray-500 focus:outline-none text-xs">
+        <button type="submit" class="w-full btn-gradient py-3.5 rounded-full text-xs font-bold tracking-wide mt-2">Sign In</button>
+      </form>
+      <div class="mt-6 text-center text-xs text-gray-400">
+        Don't have an account? <a href="#" onclick="switchView('register')" class="text-[#ff6766] hover:underline font-semibold">Sign up</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- View: Register -->
+  <main id="view-register" class="hidden relative z-10 flex-1 flex items-center justify-center px-6 py-12">
+    <div class="w-full max-w-md glass-card rounded-[2.5rem] p-8 shadow-2xl">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-white mb-2">Create Account</h2>
+        <p class="text-gray-400 text-xs">Join CarbonCode platform today</p>
+      </div>
+      <form onsubmit="event.preventDefault(); switchView('builder');" class="space-y-4">
+        <input type="text" placeholder="Full Name" class="w-full glass-input rounded-full px-6 py-3.5 text-white placeholder-gray-500 focus:outline-none text-xs">
+        <input type="email" placeholder="Email Address" class="w-full glass-input rounded-full px-6 py-3.5 text-white placeholder-gray-500 focus:outline-none text-xs">
+        <input type="password" placeholder="Password" class="w-full glass-input rounded-full px-6 py-3.5 text-white placeholder-gray-500 focus:outline-none text-xs">
+        <button type="submit" class="w-full btn-gradient py-3.5 rounded-full text-xs font-bold tracking-wide mt-2">Create Account</button>
+      </form>
+      <div class="mt-6 text-center text-xs text-gray-400">
+        Already have an account? <a href="#" onclick="switchView('login')" class="text-[#ff6766] hover:underline font-semibold">Sign in</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- View: Builder -->
+  <main id="view-builder" class="hidden relative z-10 flex-1 flex flex-col px-8 py-6 max-w-7xl mx-auto w-full">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-white">Agent Builder Workspace</h2>
+      <button onclick="switchView('home')" class="px-5 py-2 rounded-full glass-card text-xs text-gray-300">Exit</button>
+    </div>
+    <div class="glass-card rounded-3xl p-8 flex-1 flex items-center justify-center">
+      <div class="text-center">
+        <p class="text-lg text-gray-300 font-mono mb-2">Building AI Workflow...</p>
+        <span class="text-xs text-[#ffb173]">Isometric background watermark loaded</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="relative z-10 py-6 text-center text-xs text-gray-500">
+    © 2026 CarbonCode AI.
+  </footer>
+
+  <script>
+    function switchView(viewName) {
+      ['home', 'login', 'register', 'builder'].forEach(v => {
+        document.getElementById(`view-${v}`).classList.add('hidden');
+        const navBtn = document.getElementById(`nav-${v}`);
+        if(navBtn) {
+          navBtn.classList.remove('bg-[#ff6766]/20', 'text-[#ffe3b3]');
+          navBtn.classList.add('text-gray-400');
+        }
+      });
+      document.getElementById(`view-${viewName}`).classList.remove('hidden');
+      const activeNav = document.getElementById(`nav-${viewName}`);
+      if(activeNav) {
+        activeNav.classList.add('bg-[#ff6766]/20', 'text-[#ffe3b3]');
+        activeNav.classList.remove('text-gray-400');
+      }
+    }
+  </script>
+</body>
+</html>

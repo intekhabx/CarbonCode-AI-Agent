@@ -11,6 +11,12 @@ const envSchema = z.object({
 
   DATABASE_URL: z.string(),
 
+  JWT_ACCESS_SECRET: z.string(),
+  JWT_ACCESS_EXPIRES_IN: z.string().default("900"), //15m
+  JWT_REFRESH_SECRET: z.string(),
+  JWT_REFRESH_EXPIRES_IN: z.string().default("604800"), //7d
+
+
   GEMINI_BASE_URL: z.url().default("https://generativelanguage.googleapis.com/v1beta/openai/"),
   MAIN_LLM_API_KEY: z.string(),
   MAIN_LLM_MODEL: z.string().default("gemini-2.5-flash"),
