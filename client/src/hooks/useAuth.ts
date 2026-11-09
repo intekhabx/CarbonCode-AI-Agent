@@ -13,7 +13,7 @@ export const useSignup = ({name, email, password}: {name: string, email: string,
       await authService.signupUserWithEmailAndPassword({name, email, password}),
 
     onSuccess: () => {
-      console.log("signup success")
+      // console.log("signup success")
       toast.success("Your Account Created Successfully");
       navigate("/signin");
     },
@@ -106,7 +106,7 @@ export const useUserProfile = () => {
 }
 
 
-// renew token hook
+// renew token hook //ye useMutation se hota kyuki ye post api call h but phir v isko useQuery se hi kiye hai
 export const useRenewToken = () => {
   const {isPending} =  useQuery({
     queryKey: ["renew"],

@@ -5,6 +5,7 @@ import Layout from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import { useRenewToken, useUserProfile } from "./hooks/useAuth";
 import Loading from "./components/Loading";
+import BuilderPage from "./pages/BuilderPage";
 
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
 
 
           <Route path="/" element={<HomePage />} />
+          <Route path="/builder" element={ user ? <BuilderPage /> : <Navigate to="/signin" replace /> } />
 
 
           {/* fallback page when user go on any other page that doen't exists */}
