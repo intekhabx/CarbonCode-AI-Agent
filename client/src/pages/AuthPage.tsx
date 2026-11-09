@@ -33,13 +33,15 @@ export default function AuthPage({mode}: AuthPageProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    isSignin ?
-      signinMutation.mutateAsync().then((data) => console.log(data)) 
-      :
-      signupMutation.mutateAsync().then((data) => {
-        console.log(data);
-        setPassword("");
+
+    if(isSignin){
+      signinMutation.mutate();
+    }
+    else{
+      signupMutation.mutate(undefined, {
+        onSuccess: () => setPassword(""),
       });
+    }
   };
 
 
