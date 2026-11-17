@@ -1,11 +1,12 @@
 
 import { Navigate, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
-import Layout from "./pages/Layout";
+import { Layout, AuthenticatedLayout } from "./pages/Layout";
 import HomePage from "./pages/HomePage";
 import { useRenewToken, useUserProfile } from "./hooks/useAuth";
 import Loading from "./components/Loading";
 import BuilderPage from "./pages/BuilderPage";
+import ChatPage from "./pages/ChatPage";
 
 
 export default function App() {
@@ -28,9 +29,11 @@ export default function App() {
           <Route path="/signup" element={user ? <Navigate to="/" replace /> : <AuthPage mode="signup" />} />
 
 
-
-          <Route path="/" element={<HomePage />} />
-          <Route path="/builder" element={ user ? <BuilderPage /> : <Navigate to="/signin" replace /> } />
+          <Route element={user && <AuthenticatedLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/builder" element={ user ? <BuilderPage /> : <Navigate to="/signin" replace /> } />
+            <Route path="/chat/:chatId" element={ user ? <ChatPage /> : <Navigate to="/signin" replace /> } />
+          </Route>
 
 
           {/* fallback page when user go on any other page that doen't exists */}

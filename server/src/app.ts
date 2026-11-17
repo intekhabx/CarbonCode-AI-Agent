@@ -5,6 +5,7 @@ import logger from "./lib/winston-logger.js";
 import { env } from "./config/env.js";
 import authRoute from "./modules/auth/auth.route.js";
 import globalErrorHandler from "./middleware/error-handler.js";
+import chatRoute from "./modules/chat/chat.route.js";
 
 
 
@@ -28,6 +29,7 @@ export default function createApplication(): Express{
 
   // routes
   app.use("/api/auth", authRoute);
+  app.use("/api/agent", chatRoute);
   
 
   app.get("/health", (req, res) => {
