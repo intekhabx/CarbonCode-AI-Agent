@@ -18,8 +18,9 @@ const envSchema = z.object({
 
 
   GEMINI_BASE_URL: z.url().default("https://generativelanguage.googleapis.com/v1beta/openai/"),
-  MAIN_LLM_API_KEY: z.string(),
-  MAIN_LLM_MODEL: z.string().default("gemini-2.5-flash"),
+  CHAT_AGENT_MODEL: z.string().default("gemini-2.5-flash"),
+  BUILDER_AGENT_MODEL: z.string().default("gemini-3.5-flash"),
+  GEMINI_API_KEY: z.string(),
 });
 
 

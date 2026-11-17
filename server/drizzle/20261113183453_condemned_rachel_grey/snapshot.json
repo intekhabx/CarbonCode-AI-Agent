@@ -1,0 +1,111 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "8f91e7dc-5c87-4953-9769-4bb4c82a604a",
+  "prevIds": [
+    "824151c3-c036-48d1-822d-182da0d93c5e"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "chat_type"
+      ],
+      "writes": [
+        "s|enum|public.chat_type",
+        "n|enum|public.chat_type",
+        "e|enum|public.chat_type",
+        "n|type|public.chat_type"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "chats",
+        "pinned"
+      ],
+      "writes": [
+        "s|col|public.chats.pinned",
+        "n|col|public.chats.pinned",
+        "e|col|public.chats.pinned"
+      ],
+      "reads": [
+        "n|tbl|public.chats",
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "add_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "chats",
+        "type"
+      ],
+      "writes": [
+        "s|col|public.chats.type",
+        "n|col|public.chats.type",
+        "e|col|public.chats.type"
+      ],
+      "reads": [
+        "n|tbl|public.chats",
+        "n|sch|public",
+        "n|enum|public.chat_type"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "chat_type",
+        "values": [
+          "chat",
+          "app"
+        ],
+        "entityType": "enums"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "chats",
+        "name": "pinned",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "false",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "table": "chats",
+        "name": "type",
+        "type": "chat_type",
+        "typeSchema": "public",
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    }
+  ]
+}
