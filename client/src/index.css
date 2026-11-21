@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* this is for stramdown --> packages for formatting the llm response */
+@source "../node_modules/streamdown/dist/*.js";
+
 
 @theme {
   --font-sans: "Lexend", sans-serif;

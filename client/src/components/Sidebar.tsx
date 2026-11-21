@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import type { MouseEvent, ReactNode } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Blocks, ChevronDown, ChevronRight, Code2Icon, LogOut, MessagesCircle, MoreHorizontal, PanelLeftClose, PanelLeftOpen, Pencil, Settings, SquarePen, Trash2, UserRound } from "lucide-react";
-import { VscPinned } from "react-icons/vsc";
+import { VscPinned, VscUnpin } from "react-icons/vsc";
 import { useUserProfile, useSignout } from "../hooks/useAuth";
 import type { IconType } from "react-icons/lib";
-import { useGetAllChats } from "../hooks/useChat";
+import { useDeleteChat, useGetAllChats, useTogglePinnedChat } from "../hooks/useChat";
 import type { Chat } from "../../../types/chat-types";
+import Popup from "./Popup";
+import { useAppStore } from "../store/appStore";
 
 
 type SidebarProps = {
@@ -41,10 +43,17 @@ const SidebarSection = ({ title, Icon, children }: { title: string; Icon: IconTy
 
 export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) {
 
+  const isPopupOpen = useAppStore((state) => state.isPopupOpen);
+  const setIsPopupOpen = useAppStore((state) => state.setIsPopupOpen);
+
+  const navigate = useNavigate();
+
   const { user } = useUserProfile();
   const signoutMutation = useSignout();
 
   const {data: allChatsData} = useGetAllChats(Boolean(user));
+  const togglePinnedChatMutation = useTogglePinnedChat();
+  const deleteChatMutation = useDeleteChat();
 
   const chats = allChatsData?.filter((data) => data.type === "chat" && !data.pinned);
   const apps = allChatsData?.filter((data) => data.type === "app" && !data.pinned);
@@ -96,8 +105,10 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) 
 
 
 
-  // const togglePin = (id: string) => setItems(items.map((item) => (item.id === id ? { ...item, pinned: !item.pinned } : item)));
-
+  const togglePinnedChat = (chatId: string) => {
+    setChatMenuCard(null);
+    togglePinnedChatMutation.mutate(chatId);
+  }
   // const deleteItem = (id: string) => setItems(items.filter((item) => item.id !== id));
 
   // const renameItem = (id: string, title: string) => {
@@ -262,9 +273,12 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) 
                 }}
                 className="fixed z-50 w-40 rounded-2xl border border-white/15 bg-surface p-1.5 shadow-glass"
               >
-                <button type="button" className={menuButtonClass}>
-                  <VscPinned size={16} />
-                  Pin
+                <button type="button" onClick={()=> togglePinnedChat(chatMenuCard.id)} className={menuButtonClass}>
+                  {allChatsData?.find((chat) => chat.id === chatMenuCard.id)?.pinned ? 
+                    <span className="flex justify-center items-center gap-3"><VscUnpin size={16} />Unpin</span>
+                    : 
+                    <span className="flex justify-center items-center gap-3"><VscPinned size={16} />Pin</span>
+                  }
                 </button>
 
                 <button type="button" className={menuButtonClass}>
@@ -273,6 +287,7 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) 
                 </button>
 
                 <button
+                  onClick={() => setIsPopupOpen(true)}
                   type="button"
                   className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-left text-sm text-red-400 transition hover:bg-red-500/10 hover:text-red-300"
                 >
@@ -291,6 +306,28 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) 
             </button>
           )}
 
+
+          {/* Popup button  */}
+          {
+            isPopupOpen && chatMenuCard &&
+            <Popup 
+              isOpen={isPopupOpen}
+              title="Do you want to delete this chat"
+              description="Are you sure you want to delete this conversation? This action cannot be undone."
+              confirmText="Delete"
+              onCancel={() => setIsPopupOpen(false)}
+              isLoading={deleteChatMutation.isPending}
+              onConfirm={() => {
+                deleteChatMutation.mutate(chatMenuCard.id, {
+                  onSuccess: () => {
+                    navigate("/");
+                    toggleSidebar();
+                  }
+                })
+              }}
+              variant="danger"
+            />
+          }
         </div>
       </div>
     </>

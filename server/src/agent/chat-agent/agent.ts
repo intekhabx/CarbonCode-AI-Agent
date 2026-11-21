@@ -1,8 +1,11 @@
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources";
 import { env } from "../../config/env.js";
-import { createAndWriteFileTool } from "../tools/writefile.tool.js";
 import executeTool from "../tools/index.js";
+import { webSearchTool } from "../tools/websearch.tool.js";
+import type { Message } from "@repo/types/chat-types.js";
+import { getCurrentDateAndTimeTool } from "../tools/current-datetime.tool.js";
+import { CHAT_SYSTEM_PROMPT } from "./prompt.js";
 
 
 
@@ -11,19 +14,20 @@ const openai = new OpenAI({
   baseURL: env.GEMINI_BASE_URL,
 });
 
-export async function callChatAgentLLM(userPrompt: string) {
+export async function callChatAgentLLM(userPrompt: string, history: Message[]) {
   const messages: ChatCompletionMessageParam[] = [
     {
       role: "system",
-      content: "You are a helpful assistant and you have tools you can use.",
+      content: CHAT_SYSTEM_PROMPT,
     },
+    ...history,
     {
       role: "user",
       content: userPrompt,
     },
   ];
 
-  const tools = [createAndWriteFileTool];
+  const tools = [webSearchTool, getCurrentDateAndTimeTool];
 
   const MAX_ITERATION = 5;
 

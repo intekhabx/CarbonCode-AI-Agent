@@ -38,9 +38,11 @@ export default function Navbar() {
                 <Link to={"/signin"} className="cursor-pointer rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition hover:border-peach hover:text-peach sm:px-4">
                   Sign in
                 </Link>
-                <Link to={"/signup"} className="cursor-pointer rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition hover:border-peach sm:px-4 bg-gradient-to-r from-crimson to-peach">
-                  Get Started Free
-                </Link>
+                <div className="hidden md:block">
+                  <Link to={"/signup"} className="cursor-pointer rounded-full border border-white/20 px-3 py-1.5 text-xs font-medium text-white transition hover:border-peach sm:px-4 bg-gradient-to-r from-crimson to-peach">
+                    Get Started Free
+                  </Link>
+                </div>
               </div>
               :
             <span className="max-w-34 truncate text-muted sm:max-w-none bg-surface/80 rounded-full py-1 px-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">{user?.name}</span>

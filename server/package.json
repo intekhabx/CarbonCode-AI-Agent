@@ -6,7 +6,7 @@
   "private": "true",
   "scripts": {
     "build": "tsc",
-    "start" : "node dist/server.js",
+    "start": "node dist/server.js",
     "dev": "tsx watch src/server.ts",
     "db:generate": "pnpm exec drizzle-kit generate",
     "db:migrate": "pnpm exec drizzle-kit migrate"
@@ -23,6 +23,8 @@
   },
   "type": "module",
   "dependencies": {
+    "@repo/types": "workspace:*",
+    "@tavily/core": "^1.1.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^18.0.9",
