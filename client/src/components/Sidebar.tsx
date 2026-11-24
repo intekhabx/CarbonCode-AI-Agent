@@ -321,7 +321,7 @@ export default function Sidebar({ isSidebarOpen, toggleSidebar }: SidebarProps) 
                 deleteChatMutation.mutate(chatMenuCard.id, {
                   onSuccess: () => {
                     navigate("/");
-                    toggleSidebar();
+                    // toggleSidebar();
                   }
                 })
               }}
