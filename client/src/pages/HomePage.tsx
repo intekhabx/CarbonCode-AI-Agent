@@ -7,6 +7,7 @@ import HowItWork from "../components/HowItWork";
 import RecentWork from "../components/RecentWork";
 import {v4 as uuidv4} from "uuid";
 import Navbar from "../components/Navbar";
+import { useChatAgent } from "../hooks/useChat";
 
 
 const quickTags = ["Portfolio Website", "E-commerce Store", "Landing Page", "Blog", "Resume Website"];
@@ -24,20 +25,25 @@ export default function HomePage() {
 
   const navigate = useNavigate();
 
+  const callChatAgentMutation = useChatAgent();
+
 
   const handleGenerate = () => {
     if (!prompt.trim()) return;
 
-    //step:1 if your is not loggedin the redirect to signin page
+    //step:1 if user is not loggedin then redirect to signin page
     if(!user) {
       toast.error("Please Signin first");
       navigate("/signin");
       return;
     }
 
-    // step:2 check the user mode and based on call agent
+    // step:2 check the user mode, and based on that, call agent
     if(mode === "chat"){
-      return navigate(`/chat/${uuidv4()}`);
+      const chatId = uuidv4();
+      callChatAgentMutation.mutate({prompt, chatId});
+      setPrompt("");
+      return navigate(`/chat/${chatId}`);
     }
     else{
       return navigate("/builder");

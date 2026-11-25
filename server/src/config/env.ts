@@ -21,6 +21,8 @@ const envSchema = z.object({
   CHAT_AGENT_MODEL: z.string().default("gemini-2.5-flash"),
   BUILDER_AGENT_MODEL: z.string().default("gemini-3.5-flash"),
   GEMINI_API_KEY: z.string(),
+  
+  TAVILY_API_KEY: z.string(),
 });
 
 

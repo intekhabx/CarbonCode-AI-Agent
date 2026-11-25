@@ -21,6 +21,17 @@ const chatService = {
     return data.data.chat;
   },
 
+  togglePinnedUserChat: async (chatId: string) => {
+    const {data} = await api.patch(`/api/agent/chat/pin/${chatId}`);
+    return data.data.chat;
+  },
+
+  deleteUserChatById: async (chatId: string) => {
+    const {data} = await api.delete(`/api/agent/chat/${chatId}`);
+    console.log(data);
+    return data;
+  },
+
 }
 
 

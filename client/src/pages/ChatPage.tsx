@@ -6,6 +6,7 @@ import { useChatAgent, useGetChatById } from "../hooks/useChat";
 import { useUserProfile } from "../hooks/useAuth";
 import { useAppStore } from "../store/appStore";
 import ChatAndBuilderHeader from "../components/ChatAndBuilderHeader";
+import AIMessageFormat from "../components/AIMessageFormat";
 
 
 
@@ -61,7 +62,8 @@ export default function ChatPage() {
             ) : (
               <div key={message.id} className="">
                 <div className="flex flex-col items-start gap-3 leading-7 text-white">
-                  <p>{message.content}</p>
+                  {/* <p>{message.content}</p> */}
+                  <AIMessageFormat content={message.content} />
                 </div>
                 {/* {message.code && (
                   <pre className="scrollbar-theme w-full overflow-x-auto rounded-2xl border border-line bg-surface p-4 font-mono text-xs leading-6 text-peach">{message.code}</pre>

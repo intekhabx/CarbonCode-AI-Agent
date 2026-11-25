@@ -1,0 +1,634 @@
+/* ============================================
+   CarbonCode - Streamdown / AI message styling
+============================================ */
+
+.ai-message {
+  --code-bg: #171717;
+  --code-text: #eeeeee;
+  --code-radius: 32px;
+  --code-pad: 24px;
+
+  color: var(--color-label);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.ai-message > :first-child {
+  margin-top: 0;
+}
+
+.ai-message > :last-child {
+  margin-bottom: 0;
+}
+
+/* Headings */
+
+.ai-message h1,
+.ai-message h2,
+.ai-message h3,
+.ai-message h4,
+.ai-message h5,
+.ai-message h6 {
+  color: var(--color-cream);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  margin: 1.5em 0 0.65em;
+}
+
+.ai-message h1 { font-size: 1.5rem; }
+.ai-message h2 { font-size: 1.3rem; }
+.ai-message h3 { font-size: 1.1rem; }
+.ai-message h4,
+.ai-message h5,
+.ai-message h6 { font-size: 1rem; }
+
+/* Text */
+
+.ai-message p {
+  margin: 0.75rem 0;
+}
+
+.ai-message strong {
+  color: var(--color-cream);
+  font-weight: 600;
+}
+
+.ai-message em {
+  color: var(--color-peach);
+}
+
+.ai-message a {
+  color: var(--color-peach);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-peach) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.ai-message a:hover {
+  color: var(--color-coral);
+  text-decoration-color: var(--color-coral);
+}
+
+/* Lists */
+
+.ai-message ul,
+.ai-message ol {
+  margin: 0.85rem 0;
+  padding-left: 1.5rem;
+}
+
+.ai-message ul { list-style-type: disc; }
+.ai-message ol { list-style-type: decimal; }
+
+.ai-message li {
+  margin: 0.35rem 0;
+  padding-left: 0.3rem;
+}
+
+.ai-message li::marker {
+  color: var(--color-coral);
+}
+
+.ai-message li > p {
+  margin: 0.25rem 0;
+}
+
+.ai-message li > ul,
+.ai-message li > ol {
+  margin: 0.4rem 0;
+}
+
+.ai-message input[type="checkbox"] {
+  accent-color: var(--color-crimson);
+  margin-right: 0.5rem;
+}
+
+/* Inline code */
+
+.ai-message :not(pre) > code {
+  background: color-mix(in srgb, var(--color-peach) 8%, transparent);
+  color: var(--color-peach);
+  border: 1px solid var(--color-line);
+  border-radius: 5px;
+  padding: 0.15rem 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  white-space: break-spaces;
+}
+
+/* Blockquote */
+
+.ai-message blockquote {
+  margin: 1rem 0;
+  padding: 0.6rem 1rem;
+  border-left: 3px solid var(--color-crimson);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--color-crimson) 7%, transparent);
+  color: var(--color-muted);
+}
+
+.ai-message blockquote p {
+  margin: 0.3rem 0;
+}
+
+/* Table */
+
+.ai-message table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.85rem;
+}
+
+.ai-message th,
+.ai-message td {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--color-line);
+}
+
+.ai-message th {
+  background: var(--color-surface);
+  color: var(--color-cream);
+  font-weight: 600;
+  text-align: left;
+}
+
+.ai-message tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+/* Divider and image */
+
+.ai-message hr {
+  border: none;
+  border-top: 1px solid var(--color-line);
+  margin: 1.5rem 0;
+}
+
+.ai-message img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-line);
+  margin: 1rem 0;
+}
+
+
+/* ============================================
+   Code block
+   Box (rounded, no padding) > header + code area (flush with the box edges)
+============================================ */
+
+/* No borders or shadows anywhere inside the code block */
+.ai-message [data-streamdown="code-block"],
+.ai-message [data-streamdown="code-block"] * {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+}
+
+.ai-message [data-streamdown="code-block"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.25rem 0;
+  padding: 0;
+  background: var(--code-bg);
+  border-radius: var(--code-radius);
+  overflow: hidden;
+}
+
+/* Header: the language name and the code start on the same left edge */
+.ai-message [data-streamdown="code-block"] > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: auto;
+  padding: 12px var(--code-pad) 8px;
+  background: transparent;
+}
+
+.ai-message [data-streamdown="code-block"] > div:first-child span {
+  margin: 0;
+  color: var(--code-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 5px;
+}
+
+/* Copy and download buttons */
+.ai-message [data-streamdown="code-block"] button {
+  appearance: none;
+  padding: 5px;
+  background: transparent;
+  color: var(--code-text);
+  border-radius: 6px;
+}
+
+.ai-message [data-streamdown="code-block"] button:hover {
+  background: color-mix(in srgb, var(--color-peach) 8%, transparent);
+  color: var(--color-peach);
+}
+
+/* Code area: its bottom corners use the same radius as the box, so they always line up */
+.ai-message [data-streamdown="code-block"] > :last-child {
+  background: var(--color-background);
+  border-radius: 0 0 var(--code-radius) var(--code-radius);
+  overflow: hidden;
+}
+
+/* Streamdown wraps the code in extra divs, remove their padding */
+.ai-message [data-streamdown="code-block"] > :last-child div {
+  padding: 0;
+  background: transparent;
+  border-radius: inherit;
+}
+
+.ai-message [data-streamdown="code-block"] pre {
+  margin: 0;
+  padding: 8px 20px 14px;
+  border-radius: inherit;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-crimson) transparent;
+}
+
+.ai-message [data-streamdown="code-block"] pre code {
+  padding: 0;
+  font-size: inherit;
+}
+
+/* The syntax highlighter sets inline backgrounds, so only these need !important */
+.ai-message [data-streamdown="code-block"] pre,
+.ai-message [data-streamdown="code-block"] pre code {
+  background: transparent !important;
+}
+
+
+/* ============================================
+   Mobile
+============================================ */
+
+@media (max-width: 640px) {
+  .ai-message {
+    --code-radius: 22px;
+    --code-pad: 16px;
+    font-size: 0.875rem;
+  }
+
+  .ai-message h1 { font-size: 1.3rem; }
+  .ai-message h2 { font-size: 1.15rem; }
+
+  .ai-message th,
+  .ai-message td {
+    padding: 0.55rem;
+  }
+
+  .ai-message [data-streamdown="code-block"] pre {
+    font-size: 12px;
+  }
+}
+
+
+/* Table Styling... */
+/* ============================================
+   CarbonCode - Streamdown Table Styling
+============================================ */
+
+.ai-markdown {
+  --table-bg: var(--color-background);
+  --table-header-bg: var(--color-surface);
+  --table-text: var(--color-label);
+  --table-border: var(--color-line);
+  --table-hover: color-mix(
+    in srgb,
+    var(--color-peach) 6%,
+    var(--color-background)
+  );
+}
+
+/* ============================================
+   TABLE WRAPPER
+============================================ */
+
+.ai-markdown [data-streamdown="table-wrapper"] {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--table-border);
+  border-radius: 12px;
+  background: var(--table-bg);
+
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-crimson) transparent;
+}
+
+/* ============================================
+   TABLE
+============================================ */
+
+.ai-markdown [data-streamdown="table"] {
+  width: 100%;
+  min-width: 500px;
+  margin: 0;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  background: var(--table-bg);
+  color: var(--table-text);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ============================================
+   TABLE HEADER
+============================================ */
+
+.ai-markdown [data-streamdown="table-header"] {
+  background: var(--table-header-bg);
+}
+
+.ai-markdown [data-streamdown="table-header-cell"] {
+  padding: 13px 16px;
+  background: var(--table-header-bg);
+  color: var(--color-cream);
+  font-weight: 600;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  border-right: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--table-border);
+}
+
+/* ============================================
+   TABLE BODY
+============================================ */
+
+.ai-markdown [data-streamdown="table-body"] {
+  background: var(--table-bg);
+}
+
+.ai-markdown [data-streamdown="table-cell"] {
+  padding: 12px 16px;
+  background: var(--table-bg);
+  color: var(--table-text);
+  text-align: left;
+  vertical-align: top;
+  border-right: 1px solid var(--table-border);
+  border-bottom: 1px solid var(--table-border);
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* Paragraphs inside cells */
+.ai-markdown [data-streamdown="table-cell"] p {
+  margin: 0.25rem 0;
+}
+
+/* Strong text */
+.ai-markdown [data-streamdown="table-cell"] strong {
+  color: var(--color-cream);
+}
+
+/* Links */
+.ai-markdown [data-streamdown="table-cell"] a {
+  color: var(--color-peach);
+  overflow-wrap: anywhere;
+}
+
+/* Inline code */
+.ai-markdown [data-streamdown="table-cell"] code {
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+/* ============================================
+   ROW STYLING
+============================================ */
+
+.ai-markdown [data-streamdown="table-row"]:nth-child(even)
+[data-streamdown="table-cell"] {
+  background: color-mix(
+    in srgb,
+    var(--color-surface) 45%,
+    var(--color-background)
+  );
+}
+
+/* Hover */
+.ai-markdown [data-streamdown="table-row"]:hover
+[data-streamdown="table-cell"] {
+  background: var(--table-hover);
+}
+
+/* Last column */
+.ai-markdown [data-streamdown="table-header-cell"]:last-child,
+.ai-markdown [data-streamdown="table-cell"]:last-child {
+  border-right: 0;
+}
+
+/* Last row */
+.ai-markdown [data-streamdown="table-body"]
+[data-streamdown="table-row"]:last-child
+[data-streamdown="table-cell"] {
+  border-bottom: 0;
+}
+
+/* ============================================
+   SCROLLBAR - TABLE
+============================================ */
+
+.ai-markdown [data-streamdown="table-wrapper"]::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ai-markdown [data-streamdown="table-wrapper"]::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.ai-markdown [data-streamdown="table-wrapper"]::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 10px;
+}
+
+.ai-markdown [data-streamdown="table-wrapper"]::-webkit-scrollbar-thumb:hover {
+  background: var(--color-crimson);
+}
+
+/* ============================================
+   FULLSCREEN TABLE
+============================================ */
+
+[data-streamdown="table-fullscreen"] {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 100vw;
+  max-height: 100dvh;
+  padding: 24px;
+  box-sizing: border-box;
+  overflow: auto;
+  background: var(--color-background);
+  color: var(--color-label);
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fullscreen table */
+[data-streamdown="table-fullscreen"] [data-streamdown="table"],
+[data-streamdown="table-fullscreen"] table {
+  width: 100%;
+  min-width: 600px;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-background);
+  color: var(--color-label);
+}
+
+/* Fullscreen header */
+[data-streamdown="table-fullscreen"] th,
+[data-streamdown="table-fullscreen"]
+[data-streamdown="table-header-cell"] {
+  background: var(--color-surface);
+  color: var(--color-cream);
+}
+
+/* Fullscreen cells */
+[data-streamdown="table-fullscreen"] td,
+[data-streamdown="table-fullscreen"]
+[data-streamdown="table-cell"] {
+  background: var(--color-background);
+  color: var(--color-label);
+  border-color: var(--color-line);
+}
+
+/* Fullscreen scrollbar */
+[data-streamdown="table-fullscreen"]::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-streamdown="table-fullscreen"]::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 10px;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+============================================ */
+
+@media (max-width: 640px) {
+
+  /* Chat container */
+  .ai-message,
+  .ai-markdown {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  /* Scrollable table container */
+  .ai-markdown [data-streamdown="table-wrapper"] {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 1rem 0;
+    border-radius: 9px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Table should maintain its natural width */
+  .ai-markdown [data-streamdown="table"] {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    table-layout: auto;
+    font-size: 0.78rem;
+  }
+
+  /* Mobile header */
+  .ai-markdown [data-streamdown="table-header-cell"] {
+    min-width: 105px;
+    max-width: 180px;
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Mobile cells */
+  .ai-markdown [data-streamdown="table-cell"] {
+    min-width: 105px;
+    max-width: 200px;
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    line-height: 1.55;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  /* Reduce paragraph spacing */
+  .ai-markdown [data-streamdown="table-cell"] p {
+    margin: 0.2rem 0;
+  }
+
+  /* Fullscreen mobile */
+  [data-streamdown="table-fullscreen"] {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 100vw;
+    max-height: 100dvh;
+    padding: 12px;
+    overflow: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  [data-streamdown="table-fullscreen"] table,
+  [data-streamdown="table-fullscreen"]
+  [data-streamdown="table"] {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    max-width: none;
+    table-layout: auto;
+    font-size: 0.78rem;
+  }
+
+  [data-streamdown="table-fullscreen"] th,
+  [data-streamdown="table-fullscreen"] td {
+    min-width: 105px;
+    max-width: 200px;
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
