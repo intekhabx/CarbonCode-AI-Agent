@@ -5,7 +5,7 @@ const apps = [
     id: "1",
     name: "Portfolio website",
     status: "PUBLISHED",
-    url: "https://intekhabx.vercel.app",
+    url: "https://intekhabx.vercel",
   },
   {
     id: "2",

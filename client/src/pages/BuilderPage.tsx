@@ -61,15 +61,16 @@ export default function BuilderPage() {
   return (
     <div className="flex h-screen flex-col">
       {/* Mobile only: switch between the chat and the preview */}
-      <div className="md:hidden">
+      <div className="sticky top-0 z-20 md:hidden backdrop-blur-[24px]">
         <ChatAndBuilderHeader title={"i am a devil"} />
-      </div>
-      <div className="mx-4 mb-3 flex rounded-full border border-line bg-glass p-1 backdrop-blur-[24px] md:hidden">
-        {(["chat", "preview"] as const).map((item) => (
-          <button key={item} type="button" onClick={() => setTab(item)} className={`flex-1 cursor-pointer rounded-full py-2 font-semibold capitalize transition ${tab === item ? "bg-white/15 text-white" : "text-muted"}`}>
-            {item}
-          </button>
-        ))}
+
+        <div className="mx-4 mb-2 flex rounded-full border border-line bg-glass p-1 backdrop-blur-[24px]">
+          {(["chat", "preview"] as const).map((item) => (
+            <button key={item} type="button" onClick={() => setTab(item)} className={`flex-1 cursor-pointer rounded-full py-2 font-semibold capitalize transition ${tab === item ? "bg-white/15 text-white" : "text-muted"}`}>
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
 
       <div className="flex min-h-0 flex-1">
