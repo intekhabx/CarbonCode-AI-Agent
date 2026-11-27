@@ -29,13 +29,20 @@ export const isLoggedIn = async (req: AuthRequest, res: Response, next: NextFunc
     }
 
     // step:3 verify the token and find user with decoded id
-    const decoded = verifyAccessToken(token) as IAccessTokenPayload;
+    let decoded;
+    try {
+      decoded = verifyAccessToken(token) as IAccessTokenPayload;
+    } 
+    catch (error) {
+      throw ApiError.unauthorized("Access Denied, Token Expired", ERROR_CODES.TOKEN_EXPIRED);
+    }
+
     const [user] = await db
       .select()
       .from(usersTable)
       .where(eq(usersTable.id, decoded.sub));
     if (!user) {
-      throw ApiError.unauthorized("Access Denied, Token Expired", ERROR_CODES.TOKEN_EXPIRED);
+      throw ApiError.unauthorized("Access Denied, Invalid OR Incorrect Token");
     }
 
     // step:4 add user object in the req object
